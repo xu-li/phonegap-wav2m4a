@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:rim="http://www.blackberry.com/ns/widgets"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="xu.li.cordova.wav2m4a"
+    version="0.1">
+    <name>Wav2M4a</name>
+    <description>A cordova plugin to convert wav to m4a</description>
+    <license>MIT</license>
+    <keywords>cordova,wav,m4a</keywords>
+    <repo>https://github.com/xu-li/phonegap-wav2m4a.git</repo>
+    <issue>https://github.com/xu-li/phonegap-wav2m4a/issues</issue>
+
+    <js-module src="www/wav2m4a.js" name="wav2m4a">
+        <clobbers target="wav2m4a" />
+    </js-module>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="Wav2M4a">
+                <param name="ios-package" value="CDVWav2M4a"/>
+            </feature>
+        </config-file>
+
+        <header-file src="src/ios/CDVWav2M4a.h" />
+        <source-file src="src/ios/CDVWav2M4a.m" />
+    </platform>
+</plugin>
