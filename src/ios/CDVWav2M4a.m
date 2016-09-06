@@ -23,10 +23,21 @@
     }
     
     // check if source file exists
+    if ([[NSFileManager defaultManager] fileExistsAtPath:target]) {
+        NSError* err;
+        [[NSFileManager defaultManager] removeItemAtPath:target error:&err];
+        if(err){
+            NSLog(@"Strange error code: %ld", (long)err.code);
+            NSLog(@"Strange descriprion code: %@", [err localizedDescription]);
+        }
+    }
+
+
+    // check if source file exists
     if (![[NSFileManager defaultManager] fileExistsAtPath:src])
     {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Source file doesn't exist."];
-        
+
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         return ;
     }
@@ -35,7 +46,9 @@
         NSURL* srcUrl = [NSURL fileURLWithPath:src];
         AVURLAsset* audioAsset = [[AVURLAsset alloc] initWithURL:srcUrl options:nil];
         AVAssetExportSession *session = [[AVAssetExportSession alloc] initWithAsset:audioAsset presetName:AVAssetExportPresetAppleM4A];
-        session.outputURL = [NSURL fileURLWithPath:target];
+        NSURL *url =  [NSURL fileURLWithPath:target];
+        session.outputURL = url;
+
         session.outputFileType = AVFileTypeAppleM4A;
         
         [session exportAsynchronouslyWithCompletionHandler:^{
