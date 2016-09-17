@@ -1,4 +1,4 @@
-phonegap-wav2m4a
+phonegap-wav2m4a (deprecated)
 ================
 
 A phonegap plugin to convert audio files from wav to m4a
